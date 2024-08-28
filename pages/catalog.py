@@ -23,10 +23,11 @@ class Catalog_page(Base):
     filter_self_pickup = '//div[@data-meta-value="Доступен самовывоз"]'
     filter_Apple = '//div[@data-meta-value="APPLE"]'
     product_1 = '(//a[@data-meta-name="Snippet__title"])[1]'
-    select_product_1 = '//*[@id="__next"]/div/main/section/div[2]/div/div/section/div[2]/div[2]/div[1]/div/div/div[4]/div[2]/button/span/span/svg'
-    filter_Apple_word = '//*[@id="__next"]/div/main/section/div[2]/div/div/section/div[2]/div[1]/div[1]/div/div[4]/div/button/span[1]'
-    filter_self_pickup_word = '//*[@id="__next"]/div/main/section/div[2]/div/div/section/div[2]/div[1]/div[1]/div/div[2]/div/button/span[1]'
-
+    select_product_1 = '(//button[@data-meta-name="Snippet__cart-button"])[1]'
+    filter_Apple_word = '(//span[@class="e1ys5m360 e106ikdt0 app-catalog-rx1cfc e1gjr6xo0"])[2]'
+    filter_self_pickup_word = '(//span[@class="e1ys5m360 e106ikdt0 app-catalog-rx1cfc e1gjr6xo0"])[1]'
+    button_to_cart = '(//span[@class="css-1xdhyk6 e1hf2t4f0"])[6]'
+    cart_word = '//span[@class="e1ys5m360 e106ikdt0 css-8hy98m e1gjr6xo0"]'
 
     #Getters
 
@@ -57,6 +58,12 @@ class Catalog_page(Base):
     def get_filter_self_pickup_word(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.filter_self_pickup_word)))
 
+    def get_button_to_cart(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.button_to_cart)))
+
+    def get_cart_word(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.cart_word)))
+
     #Actions
 
     def click_catalog_button(self):
@@ -78,7 +85,12 @@ class Catalog_page(Base):
 
     def click_select_product_1(self):
         self.get_select_product_1().click()
+        time.sleep(5)
         print("Выбран Продукт 1")
+
+    def click_button_to_cart(self):
+        self.get_button_to_cart().click()
+        print("Переход в корзину")
 
 
     #Methods
@@ -90,13 +102,13 @@ class Catalog_page(Base):
         self.click_filter_self_pickup()
         self.scroll_down("1400", "0")
         self.click_filter_Apple()
-        time.sleep(5)
         self.scroll_down("-300", "0")
-        time.sleep(5)
-        # self.click_select_product_1()
         self.assert_word(self.get_filter_Apple_word(), "APPLE")
         self.assert_word(self.get_filter_self_pickup_word(), "Доступен самовывоз")
-
+        self.scroll_down("300", "0")
+        self.click_select_product_1()
+        self.click_button_to_cart()
+        self.assert_word(self.get_cart_word(), "Корзина")
 
 
 
