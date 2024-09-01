@@ -4,8 +4,9 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
+from pages.cart_page import Cart_page
 from pages.login_page import Login_page
-from pages.catalog import Catalog_page
+from pages.catalog_page import Catalog_page
 
 
 def test_select_product_1():
@@ -23,4 +24,9 @@ def test_select_product_1():
     cat = Catalog_page(driver)
     cat.select_products()
 
+    cp = Cart_page(driver)
+    cp.product_confirmation()
+
     time.sleep(5)
+
+

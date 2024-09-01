@@ -26,7 +26,8 @@ class Catalog_page(Base):
     select_product_1 = '(//button[@data-meta-name="Snippet__cart-button"])[1]'
     filter_Apple_word = '(//span[@class="e1ys5m360 e106ikdt0 app-catalog-rx1cfc e1gjr6xo0"])[2]'
     filter_self_pickup_word = '(//span[@class="e1ys5m360 e106ikdt0 app-catalog-rx1cfc e1gjr6xo0"])[1]'
-    button_to_cart = '(//span[@class="css-1xdhyk6 e1hf2t4f0"])[6]'
+    close_card_product = '//button[@data-meta-name="UpsaleBasket__close-popup"]'
+    button_to_cart = '(//div[@data-meta-name="BasketButton"])[1]'
     cart_word = '//span[@class="e1ys5m360 e106ikdt0 css-8hy98m e1gjr6xo0"]'
 
     #Getters
@@ -64,6 +65,12 @@ class Catalog_page(Base):
     def get_cart_word(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.cart_word)))
 
+    def get_close_card_product(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.close_card_product)))
+
+    def get_close_card_product(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.close_card_product)))
+
     #Actions
 
     def click_catalog_button(self):
@@ -88,9 +95,15 @@ class Catalog_page(Base):
         time.sleep(5)
         print("Выбран Продукт 1")
 
+    def click_close_card_product(self):
+        self.get_close_card_product().click()
+
     def click_button_to_cart(self):
         self.get_button_to_cart().click()
         print("Переход в корзину")
+
+    def name_product_1(self):
+        self.get_product_1().text
 
 
     #Methods
@@ -106,7 +119,9 @@ class Catalog_page(Base):
         self.assert_word(self.get_filter_Apple_word(), "APPLE")
         self.assert_word(self.get_filter_self_pickup_word(), "Доступен самовывоз")
         self.scroll_down("300", "0")
+        self.name_product_1()
         self.click_select_product_1()
+        self.click_close_card_product()
         self.click_button_to_cart()
         self.assert_word(self.get_cart_word(), "Корзина")
 
