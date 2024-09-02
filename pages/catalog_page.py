@@ -6,7 +6,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from base.base_class import Base
 
-
 class Catalog_page(Base):
 
 
@@ -22,13 +21,14 @@ class Catalog_page(Base):
     cat_smartphones_word = '//h1[@class="elbnj820 eml1k9j0 app-catalog-kfo60a e1gjr6xo0"]'
     filter_self_pickup = '//div[@data-meta-value="Доступен самовывоз"]'
     filter_Apple = '//div[@data-meta-value="APPLE"]'
-    product_1 = '(//a[@data-meta-name="Snippet__title"])[1]'
+    product_1 = '//div[@class="css-hdphih e1xk8xnt0"]'
     select_product_1 = '(//button[@data-meta-name="Snippet__cart-button"])[1]'
     filter_Apple_word = '(//span[@class="e1ys5m360 e106ikdt0 app-catalog-rx1cfc e1gjr6xo0"])[2]'
     filter_self_pickup_word = '(//span[@class="e1ys5m360 e106ikdt0 app-catalog-rx1cfc e1gjr6xo0"])[1]'
     close_card_product = '//button[@data-meta-name="UpsaleBasket__close-popup"]'
     button_to_cart = '(//div[@data-meta-name="BasketButton"])[1]'
     cart_word = '//span[@class="e1ys5m360 e106ikdt0 css-8hy98m e1gjr6xo0"]'
+    product_1_in_cart = '//span[@class="e1ys5m360 e106ikdt0 css-56qww8 e1gjr6xo0"]'
 
     #Getters
 
@@ -63,13 +63,14 @@ class Catalog_page(Base):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.button_to_cart)))
 
     def get_cart_word(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.cart_word)))
+        return WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located((By.XPATH, self.cart_word)))
 
     def get_close_card_product(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.close_card_product)))
 
-    def get_close_card_product(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.close_card_product)))
+
+    def get_product_in_cart(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.product_1_in_cart)))
 
     #Actions
 
@@ -103,7 +104,15 @@ class Catalog_page(Base):
         print("Переход в корзину")
 
     def name_product_1(self):
-        self.get_product_1().text
+        name_p1 = self.get_product_1().text
+        with open("C://Users//davyd//PycharmProjects//new_main_project//doc//name_product.txt", "w", encoding='utf-8') as files:
+            files.write(name_p1)
+
+    def assert_product(self):
+        file = open("C://Users//davyd//PycharmProjects//new_main_project//doc//name_product.txt", "r", encoding='utf-8')
+        product = file.read()
+        assert product == self.get_product_in_cart().text
+        print("Продукт в корзине верный!")
 
 
     #Methods
@@ -111,19 +120,22 @@ class Catalog_page(Base):
         self.click_catalog_button()
         self.click_smartphones()
         self.assert_word(self.get_cat_smart_word(), "Смартфоны")
-        self.scroll_down("600", "0")
+        self.scroll("600", "0")
         self.click_filter_self_pickup()
-        self.scroll_down("1400", "0")
+        self.scroll("1400", "0")
         self.click_filter_Apple()
-        self.scroll_down("-300", "0")
+        self.scroll("-300", "0")
         self.assert_word(self.get_filter_Apple_word(), "APPLE")
         self.assert_word(self.get_filter_self_pickup_word(), "Доступен самовывоз")
-        self.scroll_down("300", "0")
-        self.name_product_1()
+        self.scroll("300", "0")
         self.click_select_product_1()
+        self.name_product_1()
         self.click_close_card_product()
         self.click_button_to_cart()
+        self.get_current_url()
         self.assert_word(self.get_cart_word(), "Корзина")
+        self.assert_product()
+
 
 
 

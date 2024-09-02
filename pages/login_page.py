@@ -36,14 +36,13 @@ class Login_page(Base):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.button_login)))
 
     def get_main_word(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.main_word)))
+        return WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located((By.XPATH, self.main_word)))
 
 
 
     #Actions
 
     def click_login_form_popup(self):
-        time.sleep(3)
         self.get_login_form_popup().click()
         print("Click Popup Login")
 
@@ -53,7 +52,6 @@ class Login_page(Base):
 
     def input_password(self, password):
         self.get_password().send_keys(password)
-        time.sleep(3)
         print("input Password")
 
     def click_button_login(self):

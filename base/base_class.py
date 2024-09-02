@@ -21,7 +21,7 @@ class Base():
 
     """Method scroll"""
 
-    def scroll_down(self, a, b):
+    def scroll(self, a, b):
         y = a
         x = b
         self.driver.execute_script(f"window.scrollTo({x},{y})")
