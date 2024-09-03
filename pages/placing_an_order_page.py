@@ -12,12 +12,17 @@ class Client_information_page(Base):
 
     #Locators
 
+    button_add_client = '(//button[@type="button"])[2]'
+
     first_name = '//input[@id="first-name"]'
     last_name = '//input[@id="last-name"]'
     zip_code = '//input[@id="postal-code"]'
     continue_button = '//input[@id="continue"]'
 
     #Getters
+
+    def get_button_add_client(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.button_add_client)))
 
     def get_first_name(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.first_name)))
@@ -34,6 +39,9 @@ class Client_information_page(Base):
 
     #Actions
 
+    def click_button_add_client(self):
+        self.get_button_add_client().click()
+        print("Открытие формы добавления получателя")
     def input_first_name(self, first_name):
         self.get_first_name().send_keys(first_name)
         print("input first_name")
@@ -54,10 +62,10 @@ class Client_information_page(Base):
     #Methods
     def input_client_information(self):
         self.get_current_url()
-        self.input_first_name("Alex")
-        self.input_last_name("Ivanov")
-        self.input_zip_code("123")
-        self.click_button_continue()
+        # self.input_first_name("Alex")
+        # self.input_last_name("Ivanov")
+        # self.input_zip_code("123")
+        self.click_button_add_client()
 
 
 

@@ -18,6 +18,8 @@ class Cart_page(Base):
     button_go_to_checkout = '//span[text()="Перейти к оформлению"]'
     product_1_cart_price = '(//span[@data-meta-is-total="notTotal"])[15]'
     product_1_price_confirmation_page = '(//span[@data-meta-is-total="total"])[3]'
+    confirmation_page_word = '//span[@class="e1ys5m360 e106ikdt0 css-p2oaao e1gjr6xo0"]'
+    
 
     #Getters
 
@@ -29,6 +31,9 @@ class Cart_page(Base):
 
     def get_product_1_price_confirmation_page(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.product_1_price_confirmation_page)))
+
+    def get_confirmation_page_word(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.confirmation_page_word)))
 
 
     #Actions
@@ -54,4 +59,5 @@ class Cart_page(Base):
         self.get_current_url()
         self.product_cart_price()
         self.click_checkout_button()
+        self.assert_word(self.get_confirmation_page_word(), "Оформление заказа")
         self.assert_price()
