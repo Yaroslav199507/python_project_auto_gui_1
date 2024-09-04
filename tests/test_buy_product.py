@@ -14,7 +14,7 @@ def test_select_product_1():
     options = webdriver.ChromeOptions()
     options.page_load_strategy = 'eager'
     # options.add_experimental_option("detach", True)
-    # options.add_argument("--headless")  #тест без открытия браузера
+    options.add_argument("--headless")  #тест без открытия браузера
     driver = webdriver.Chrome(options=options, service=Service())
 
     print("Start test 1")
@@ -31,6 +31,6 @@ def test_select_product_1():
     pop = Client_information_page(driver)
     pop.input_client_information()
 
-    time.sleep(5)
+    # time.sleep(5)
 
 

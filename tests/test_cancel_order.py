@@ -12,7 +12,7 @@ def test_cancel_order():
     options = webdriver.ChromeOptions()
     options.page_load_strategy = 'eager'
     # options.add_experimental_option("detach", True)
-    # options.add_argument("--headless")  #тест без открытия браузера
+    options.add_argument("--headless")  #тест без открытия браузера
     driver = webdriver.Chrome(options=options, service=Service())
 
     print("Start test 2")
