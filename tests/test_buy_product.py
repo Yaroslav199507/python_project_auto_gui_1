@@ -4,33 +4,51 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
-from pages.cart_page import Cart_page
-from pages.login_page import Login_page
-from pages.catalog_page import Catalog_page
-from pages.placing_an_order_page import Client_information_page
+from pages.cart_page import CartPage
+from pages.login_page import LoginPage
+from pages.catalog_page import CatalogPage
+from pages.order_page import OrderPage
+from pages.placing_an_order_page import ClientInformationPage
 
 
-def test_select_product_1():
+def test_buy_product_1(set_up):
     options = webdriver.ChromeOptions()
     options.page_load_strategy = 'eager'
-    # options.add_experimental_option("detach", True)
-    options.add_argument("--headless")  #тест без открытия браузера
+    options.add_argument("--headless")
     driver = webdriver.Chrome(options=options, service=Service())
+
 
     print("Start test 1")
 
-    lp = Login_page(driver)
+    lp = LoginPage(driver)
     lp.authorization()
 
-    cat = Catalog_page(driver)
+    cat = CatalogPage(driver)
     cat.select_products()
 
-    cp = Cart_page(driver)
+    cp = CartPage(driver)
     cp.product_confirmation()
 
-    pop = Client_information_page(driver)
+    pop = ClientInformationPage(driver)
     pop.input_client_information()
 
-    # time.sleep(5)
+    print("Finish Test 1")
+
+def test_cancel_order(set_up):
+    options = webdriver.ChromeOptions()
+    options.page_load_strategy = 'eager'
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options, service=Service())
+
+    print("Start test 2")
+
+    lp = LoginPage(driver)
+    lp.authorization()
+
+    op = OrderPage(driver)
+    op.go_to_order_cancel()
+
+    print("Finish Test 2")
+
 
 

@@ -5,7 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 
-class Login_page(Base):
+class LoginPage(Base):
 
     url = "https://www.citilink.ru/"
 
@@ -15,7 +15,6 @@ class Login_page(Base):
 
     #Locators
 
-    word_logo = '(//div[@data-meta-name="Logo"])[2]'
     login_form_popup = "//div[@data-meta-name='UserButtonContainer']"
     user_mail = "//input[@name='login']"
     password = "//input[@name='pass']"
@@ -24,11 +23,8 @@ class Login_page(Base):
 
     #Getters
 
-    def get_word_logo(self):
-        return WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.XPATH, self.word_logo)))
-
     def get_login_form_popup(self):
-        return WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.XPATH, self.login_form_popup)))
+        return WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located((By.XPATH, self.login_form_popup)))
 
     def get_user_mail(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.user_mail)))
@@ -46,6 +42,7 @@ class Login_page(Base):
     #Actions
 
     def click_login_form_popup(self):
+        time.sleep(3)
         self.get_login_form_popup().click()
         print("Click Popup Login")
 
@@ -64,11 +61,10 @@ class Login_page(Base):
 
     #Methods
     def authorization(self):
-        self.driver.get(self.url)
         self.driver.maximize_window()
+        self.driver.get(self.url)
         self.get_current_url()
         self.assert_url('https://www.citilink.ru/')
-        time.sleep(5)
         self.click_login_form_popup()
         self.input_user_mail("shestakov0907@gmail.com")
         self.input_password("Ehurig3535")

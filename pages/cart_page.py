@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 
 
-class Cart_page(Base):
+class CartPage(Base):
 
     def __init__(self, driver):
         super().__init__(driver)

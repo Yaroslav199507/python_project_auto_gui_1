@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from base.base_class import Base
 
-class Catalog_page(Base):
+class CatalogPage(Base):
 
 
     def __init__(self, driver):
@@ -39,7 +39,7 @@ class Catalog_page(Base):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.smartphones)))
 
     def get_cat_smart_word(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.cat_smartphones_word)))
+        return WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located((By.XPATH, self.cat_smartphones_word)))
 
     def get_filter_self_pickup(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.filter_self_pickup)))
@@ -48,7 +48,7 @@ class Catalog_page(Base):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.filter_Apple)))
 
     def get_product_1(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.product_1)))
+        return WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located((By.XPATH, self.product_1)))
 
     def get_select_product_1(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.select_product_1)))
@@ -89,11 +89,12 @@ class Catalog_page(Base):
 
     def click_filter_Apple(self):
         self.get_filter_Apple().click()
+        time.sleep(3)
         print("Фильтр Apple")
 
     def click_select_product_1(self):
         self.get_select_product_1().click()
-        time.sleep(5)
+        time.sleep(3)
         print("Выбран Продукт 1")
 
     def click_close_card_product(self):

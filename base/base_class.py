@@ -31,7 +31,7 @@ class Base():
 
     def screenshot(self):
         now_date = datetime.utcnow().strftime("%Y.%m.%d.%H.%M.%S")
-        name_screen = "screen " + now_date + ".png"
+        name_screen = "screen страницы оформленного заказа " + now_date + ".png"
         self.driver.save_screenshot(f"C:\\Users\\davyd\\PycharmProjects\\new_main_project\\screen\\{name_screen}")
 
     """Method assert URL"""
