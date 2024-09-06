@@ -89,7 +89,6 @@ class CatalogPage(Base):
 
     def click_filter_Apple(self):
         self.get_filter_Apple().click()
-        time.sleep(3)
         print("Фильтр Apple")
 
     def click_select_product_1(self):

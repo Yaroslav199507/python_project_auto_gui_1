@@ -14,7 +14,7 @@ from pages.placing_an_order_page import ClientInformationPage
 def test_buy_product_1(set_up):
     options = webdriver.ChromeOptions()
     options.page_load_strategy = 'eager'
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
     driver = webdriver.Chrome(options=options, service=Service())
 
 
@@ -37,7 +37,7 @@ def test_buy_product_1(set_up):
 def test_cancel_order(set_up):
     options = webdriver.ChromeOptions()
     options.page_load_strategy = 'eager'
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
     driver = webdriver.Chrome(options=options, service=Service())
 
     print("Start test 2")

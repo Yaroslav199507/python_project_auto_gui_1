@@ -18,7 +18,7 @@ class ClientInformationPage(Base):
     last_name = '//input[@name="RecipientForm__last-name"]'
     phone = '//input[@placeholder="Телефон"]'
     button_create_client = '//button[@data-meta-name="RecipientForm__action-button"]'
-    button_pickup_point = '//*[@id="__next"]/div/div[2]/div/div/div[1]/div/div[1]/div[3]/div/div/div[2]/div/div[1]/div/div[2]/div/div/div[3]/div[2]/button'
+    button_pickup_point = '//button[@class="e4uhfkv0 css-1w7mt1x e4mggex0"]'
     word_pickup_point = '//h3[@class="e114sczy0 eml1k9j0 css-5n8md8 e1gjr6xo0"]'
     button_add_pickup_point = '//*[@id="__next"]/div/div[2]/div/div/div[1]/div/div[1]/div[3]/div/div/div[2]/div/div[1]/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/button'
     payment_method_cash = '//*[@id="__next"]/div/div[2]/div/div/div[1]/div/div[1]/div[4]/div/div[2]/div/div/div[1]/div/div[2]/label[2]/span/span[2]/span'
@@ -80,7 +80,6 @@ class ClientInformationPage(Base):
 
     def click_button_create_client(self):
         self.get_button_create_client().click()
-        time.sleep(3)
         print('Клик "создать покупателя"')
 
     def click_button_pickup_point(self):
