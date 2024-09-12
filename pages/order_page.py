@@ -77,6 +77,7 @@ class OrderPage(Base):
         self.click_button_1_go_to_order_page()
         self.click_button_2_go_to_order_page()
         self.assert_word(self.get_word_order(), "Заказы")
+        self.scroll("50", "0")
         self.click_button_cancel_order()
         self.click_cancel_reason()
         self.click_button_cancel_finish()

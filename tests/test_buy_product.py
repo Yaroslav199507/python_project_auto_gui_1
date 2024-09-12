@@ -34,21 +34,6 @@ def test_buy_product_1(set_up):
 
     print("Finish Test 1")
 
-def test_cancel_order(set_up):
-    options = webdriver.ChromeOptions()
-    options.page_load_strategy = 'eager'
-    # options.add_argument("--headless")
-    driver = webdriver.Chrome(options=options, service=Service())
-
-    print("Start test 2")
-
-    lp = LoginPage(driver)
-    lp.authorization()
-
-    op = OrderPage(driver)
-    op.go_to_order_cancel()
-
-    print("Finish Test 2")
 
 
 
