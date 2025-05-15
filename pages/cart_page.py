@@ -42,6 +42,7 @@ class CartPage(Base):
         price_p1 = self.get_product_1_cart_price().text
         with open("C://Users//davyd//PycharmProjects//new_main_project//doc//price_product.txt", "w", encoding='utf-8') as files:
             files.write(price_p1)
+            print('успех')
 
     def click_checkout_button(self):
         self.get_checkout_button().click()
